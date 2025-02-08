@@ -1,10 +1,11 @@
 import json
-import bae64
+import base64
 output = []
 def lambda_handler(event, context):
     # TODO implement
-    for record in event:
-        payload = json.loads(base64.b64decode(record['data'].decode('utf-8')))
+    for record in event['records']:
+        decoded_data = base64.b64decode(record['data'])
+        payload = json.loads(decoded_data.decode('utf-8'))
         print(payload)
         output_payload = ""
         for i in payload:
